@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-express-template",
+  "name": "places-around",
   "version": "1.0.0",
   "description": "Scalable and basic template for making Node.js apps by using express",
   "main": "index.js",
@@ -25,10 +25,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.15"
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.1",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

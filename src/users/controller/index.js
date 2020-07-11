@@ -1,18 +1,53 @@
-const schemes = require('../models/mongoose');
+const Bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { v4: uuidv4 } = require('uuid');
 
-module.exports.newUser = async (res, parameters) => {
-  const user = new schemes.User(parameters);
-  user.save((err) => {
-    if (err)
-      return res.status(500).json({ error: 'Internal Server Error', data: [] });
-    return res.status(200).json({ message: 'user saved', data: [] });
-  });
-};
+const config = require('../../../config');
+const schemes = require('../models/postgreSQL');
 
-module.exports.listUser = async (res) => {
-  schemes.User.find({}, (err, messages) => {
-    if (err)
-      return res.status(500).json({ error: 'Internal Server Error', data: [] });
-    return res.status(200).json({ message: 'Users', data: messages });
+module.exports.signUp = async (res, parameters) => {
+  const {
+    password,
+    passwordConfirmation,
+    email,
+    username,
+    name,
+    lastName,
+  } = parameters;
+
+  if (password === passwordConfirmation) {
+    const newUser = schemes.User.build({
+      userid: uuidv4(),
+      username,
+      password: Bcrypt.hashSync(password, 10),
+      email,
+      name,
+      lastname: lastName,
+      jwttoken: 'prueba',
+      createdon: 14892488294892,
+      lastlogin: null,
+    });
+
+    try {
+      await newUser.save(newUser);
+
+      const token = jwt.sign(
+        { email, id: newUser.userid, username },
+        config.API_KEY_JWT,
+        { expiresIn: config.TOKEN_EXPIRES_IN }
+      );
+
+      return res.status(201).json({ token });
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        message: error,
+      });
+    }
+  }
+
+  return res.status(400).json({
+    status: 400,
+    message: 'Passwords are different, try again!!!',
   });
 };
