@@ -14,6 +14,13 @@ const User = sequelize.define(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        is: {
+          args: /^[a-z0-9]*$/,
+          msg: 'Username must only contain lowercase letters and numbers',
+        },
+      },
     },
     password: {
       type: DataTypes.TEXT,
@@ -23,6 +30,9 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     name: {
       type: DataTypes.STRING,

@@ -9,6 +9,9 @@ const config = {
   dbPort: process.env.dbPort,
   API_KEY_JWT: process.env.API_KEY_JWT,
   TOKEN_EXPIRES_IN: process.env.TOKEN_EXPIRES_IN,
+  API_KEY: process.env.API_KEY,
+  URL_PLACES_API: process.env.URL_PLACES_API,
+  keysPlaces: process.env.keysPlaces.split(',') || [],
 };
 
 module.exports = config;
