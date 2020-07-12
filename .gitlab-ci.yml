@@ -32,9 +32,9 @@ building-dev:
     - echo $GOOGLE_KEY_DEV > ./gcloud-api-key.json
     - gcloud auth activate-service-account --key-file gcloud-api-key.json
     - echo "Autenticado con Google."
-    - gcloud config set project $GOOGLE_PROJECT_NAME_DEV
+    - gcloud config set project $GOOGLE_PROJECT_NAME
   script:
-    - gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_NAME_DEV/$PROJECT_NAME
+    - gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_NAME/$PROJECT_NAME
     - echo "Termino de compilar."
 
 deploying-dev:
@@ -45,7 +45,7 @@ deploying-dev:
   before_script:
     - echo $GOOGLE_KEY_DEV > ./gcloud-api-key.json
     - gcloud auth activate-service-account --key-file gcloud-api-key.json
-    - gcloud config set project $GOOGLE_PROJECT_NAME_DEV
+    - gcloud config set project $GOOGLE_PROJECT_NAME
   script:
-    - gcloud beta run deploy $PROJECT_NAME --image=gcr.io/$GOOGLE_PROJECT_NAME_DEV/$PROJECT_NAME --platform=managed --region=us-east1 --allow-unauthenticated
+    - gcloud beta run deploy $PROJECT_NAME --image=gcr.io/$GOOGLE_PROJECT_NAME/$PROJECT_NAME --platform=managed --region=us-east1 --allow-unauthenticated
     - echo "Termino de publicar."
