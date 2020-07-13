@@ -5,7 +5,9 @@ APIs to locate the closets places from a coordinates, the user must specify the 
 - Express
 - Sequelize
 - PostgreSQL
-- Google Maps API 
+- Google Maps API
+- CD using Gitlab
+- Schemas validation using @hapi/joi
 
 ## Test it
 
@@ -21,7 +23,5 @@ Finally, it is needed to add a __.env__ file with configuration data
 
 ## Next improvements
 
-- Schema validation using __@hapi/joi__
 - APIs documentation using __Swagger__
-- Deploy the Docker to GCP and AWS (CD)
 - Unit testing using __Jest__
