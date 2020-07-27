@@ -5,7 +5,7 @@ const sequelize = require('../../../services/postgreSQL');
 const User = sequelize.define(
   'User',
   {
-    userid: {
+    user_id: {
       type: DataTypes.UUID,
       unique: true,
       allowNull: false,
@@ -42,15 +42,11 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    jwttoken: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    createdon: {
+    created_on: {
       type: DataTypes.BIGINT,
       allowNull: true,
     },
-    lastlogin: {
+    last_login: {
       type: DataTypes.BIGINT,
       allowNull: true,
     },
@@ -62,6 +58,64 @@ const User = sequelize.define(
   }
 );
 
+const Authorization = sequelize.define(
+  'Authorization',
+  {
+    user_id: {
+      type: DataTypes.UUID,
+      unique: false,
+      allowNull: false,
+      primaryKey: true,
+    },
+    token_type: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    token: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    iat: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    exp: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    valid: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
+  },
+  {
+    createdAt: false,
+    updatedAt: false,
+    tableName: 'authorizations', // optional, plural model name by default
+  }
+);
+
+const Blacklist = sequelize.define(
+  'Blacklist',
+  {
+    token: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    exp: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+  },
+  {
+    createdAt: false,
+    updatedAt: false,
+    tableName: 'blacklist', // optional, plural model name by default
+  }
+);
+
 module.exports = {
   User,
+  Authorization,
+  Blacklist,
 };

@@ -1,4 +1,4 @@
-const middleware = (schema, property) => {
+const inputCheck = (schema, property) => {
   return (req, res, next) => {
     const { error } = schema.validate(req[property]);
     const valid = error == null;
@@ -6,9 +6,9 @@ const middleware = (schema, property) => {
     else {
       const { details } = error;
       const message = details.map((i) => i.message).join(',');
-      res.status(422).json({ error: message });
+      res.status(422).json({ message, error: 'input_validation' });
     }
   };
 };
 
-module.exports = middleware;
+module.exports = { inputCheck };

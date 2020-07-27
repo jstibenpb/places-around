@@ -11,11 +11,11 @@ const Transaction = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    userid: {
+    user_id: {
       type: DataTypes.UUID,
       allowNull: false,
     },
-    userdata: {
+    user_data: {
       type: DataTypes.JSON,
       allowNull: false,
     },
@@ -23,7 +23,7 @@ const Transaction = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    originalurl: {
+    original_url: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -39,7 +39,7 @@ const Transaction = sequelize.define(
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    typeplace: {
+    type_place: {
       type: DataTypes.STRING,
       allowNull: false,
     },

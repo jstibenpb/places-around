@@ -32,14 +32,14 @@ module.exports.findPlaces = async (res, parameters, requestInfo, userInfo) => {
     const places = getFilteredPlacesWithKeys(response.data.results, type);
 
     const loggingTransaction = schemes.Transaction.build({
-      userid: userInfo.id,
-      userdata: requestInfo.userData,
+      user_id: userInfo.id,
+      user_data: requestInfo.userData,
       method: requestInfo.method,
-      originalurl: requestInfo.originalUrl,
+      original_url: requestInfo.originalUrl,
       lat: Number(lat),
       lng: Number(lng),
       radius: Number(radius),
-      typeplace: type,
+      type_place: type,
       response: places,
       time: Number(moment.tz('America/Bogota')),
     });
@@ -50,7 +50,9 @@ module.exports.findPlaces = async (res, parameters, requestInfo, userInfo) => {
       message: places.length > 0 ? 'Places found' : 'No places found',
     });
   } catch (error) {
-    return res.status(500).json({ error: 'Internal Server Error', data: [] });
+    return res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: 'internal' });
   }
 };
 
@@ -61,6 +63,8 @@ module.exports.listTransactions = async (res) => {
       .status(200)
       .json({ message: 'Transactions', data: transactionList });
   } catch (error) {
-    return res.status(500).json({ error: 'Internal Server Error', data: [] });
+    return res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: 'internal' });
   }
 };
